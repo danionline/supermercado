@@ -55,7 +55,7 @@
         
             
           </ul>
-        
+        ${usuariologin}
          
         
          <span class="form-inline">
@@ -64,7 +64,7 @@
             </c:if>	  
             
             <c:if test="${ not empty isLogeado }">
-            	<span class="badge badge-pill badge-light mr-3">${nombre}</span>
+            	<span class="badge badge-pill badge-light mr-3">${usuariologin.nombre}</span>
             	<a class="nav-link  btn btn-outline-light" href="logout">Cerrar Sesión</a>
             </c:if>
               

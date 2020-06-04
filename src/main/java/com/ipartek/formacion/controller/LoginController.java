@@ -57,10 +57,13 @@ public class LoginController extends HttpServlet {
 			if (usuario !=null) {
 
 				sesion.setAttribute("isLogeado", true);
-				sesion.setAttribute("nombre", nombre);
-				sesion.setAttribute("contrasenia", pasword);
+				sesion.setAttribute("usuariologin", usuario);
+				
+				
+				
 				
 				respuesta = usuario.toString();
+				request.setAttribute("respuesta", respuesta);
 				request.setAttribute("alerta", new Alerta("success","Enhorabuena, estas conectado con nosotros"));			
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 

@@ -14,7 +14,7 @@ public class UsuarioDAOImpl<static_final> implements UsuarioDAO {
 	static final String SQL_GET_ALL_BY_NOMBRE = " SELECT id, nombre FROM usuario WHERE nombre LIKE ? ;   ";
 	static final String SQL_GET_ALL = " SELECT id, nombre FROM usuario ORDER BY id DESC; ";
 	static final String SQL_GET_BY_ID = " SELECT id, nombre FROM usuario WHERE id = ? ; ";
-	static final String SQL_EXISTE ="SELECT id, nombre, contrasenia From usuario WHERE nombre= 'admin' and contrasenia='admin' ;";
+	static final String SQL_EXISTE ="SELECT id, nombre, contrasenia From usuario WHERE nombre= ? and contrasenia=? ;";
 	
 	
 	//executeUpdate => int
@@ -212,27 +212,28 @@ public class UsuarioDAOImpl<static_final> implements UsuarioDAO {
 		return registros;
 	}
 	
-	public Usuario existe(String nombre,String pass) {
+	public Usuario existe(String nombre,String contrasenia) {
 		
-		Usuario usuario=null;
+		Usuario usuario=new Usuario();
 		
 		try( Connection con = ConnectionManager.getConnection();
 				 PreparedStatement pst = con.prepareStatement(SQL_EXISTE);
 				 
 				){
 				
-				pst.setString(2, nombre);			
-				pst.setString(3, pass);
+				pst.setString(1, nombre);			
+				pst.setString(2, contrasenia);
 				
 				System.out.println("SQL= " + pst);			
 				
 				try ( ResultSet rs = pst.executeQuery() ){
 				
-					if( rs.next() ) {					
+					if( rs.next() ) {
+						
 						usuario.setNombre(rs.getString("nombre"));
 						usuario.setContrasenia(rs.getString("contrasenia"));
 					}else {
-						throw new Exception("Usario no encontrado nombre ");
+						throw new Exception("Usario no esta en la lista con el nombre ");
 					}
 					
 				} // 2º try	
