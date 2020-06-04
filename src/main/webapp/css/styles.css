@@ -9,9 +9,11 @@ main[role="main"] {
     min-height: 80vh;
 }
 
-
+.bg-secondary {
+    background-color:#cc0000!important;
+}
 footer {
-    color: #FFF;
+    color: #888a85;
 }
 
 .form-signin {

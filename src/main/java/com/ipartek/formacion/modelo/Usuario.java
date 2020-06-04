@@ -4,6 +4,7 @@ public class Usuario {
 	
 	private int id;
 	private String nombre;
+	private String contrasenia;
 	
 	public Usuario() {
 		super();
@@ -31,6 +32,13 @@ public class Usuario {
 	public String toString() {
 		return "Alumno [id=" + id + ", nombre=" + nombre + "]";
 	}
+
+	public void setContrasenia(String contrasenia) {
+		 this.contrasenia=contrasenia;
+		
+	}
+
+	
 	
 
 }

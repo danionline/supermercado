@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class UsuarioDAOImpl implements UsuarioDAO {
+public class UsuarioDAOImpl<static_final> implements UsuarioDAO {
 	
 	
 	private static UsuarioDAOImpl INSTANCE = null;
@@ -14,6 +14,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	static final String SQL_GET_ALL_BY_NOMBRE = " SELECT id, nombre FROM usuario WHERE nombre LIKE ? ;   ";
 	static final String SQL_GET_ALL = " SELECT id, nombre FROM usuario ORDER BY id DESC; ";
 	static final String SQL_GET_BY_ID = " SELECT id, nombre FROM usuario WHERE id = ? ; ";
+	static final String SQL_EXISTE ="SELECT id, nombre, contrasenia From usuario WHERE nombre= 'admin' and contrasenia='admin' ;";
+	
 	
 	//executeUpdate => int
 	static final String SQL_INSERT = " INSERT INTO usuario(nombre, contrasenia, id_rol) VALUES( ? ,'11111',1 ); ";
@@ -208,6 +210,43 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		}
 		
 		return registros;
+	}
+	
+	public Usuario existe(String nombre,String pass) {
+		
+		Usuario usuario=null;
+		
+		try( Connection con = ConnectionManager.getConnection();
+				 PreparedStatement pst = con.prepareStatement(SQL_EXISTE);
+				 
+				){
+				
+				pst.setString(2, nombre);			
+				pst.setString(3, pass);
+				
+				System.out.println("SQL= " + pst);			
+				
+				try ( ResultSet rs = pst.executeQuery() ){
+				
+					if( rs.next() ) {					
+						usuario.setNombre(rs.getString("nombre"));
+						usuario.setContrasenia(rs.getString("contrasenia"));
+					}else {
+						throw new Exception("Usario no encontrado nombre ");
+					}
+					
+				} // 2º try	
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		
+		
+		return usuario;
+
+		
+		
 	}
 	
 	

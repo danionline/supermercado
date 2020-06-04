@@ -1,3 +1,6 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+
+
 <!doctype html>
 <html lang="es">
   <head>
@@ -9,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> 
 
 	<!-- datatables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
@@ -22,7 +25,8 @@
     <title> ${param.title} | Supermercado</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+   
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary">
         <!-- logo -->
         <a class="navbar-brand" href="index.html">
             <i class="fas fa-shopping-cart"></i>
@@ -39,23 +43,43 @@
             <li class="nav-item"  >
               <a class="nav-link ${ ( 'inicio' eq param.pagina ) ? 'active' : '' }" href="index.jsp">Inicio</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link ${ ( 'productos' eq param.pagina ) ? 'active' : '' } "  href="productos">Productos</a>
-            </li>           
+            
+            
+          
+          
+          <c:if test="${ not empty isLogeado }">
+            	<li class="nav-item">
+              		<a class="nav-link ${ ( 'productos' eq param.pagina ) ? 'active' : '' } "  href="productos">Productos</a>
+            	</li>
+            </c:if>	           
         
             
           </ul>
         
+         
+        
          <span class="form-inline">
-              <a class="nav-link  btn btn-outline-warning" href="login.jsp">Iniciar Sesión</a>
+         	<c:if test="${ empty isLogeado }">
+            	  <a class="nav-link  btn btn-outline-warning" href="login.jsp">Iniciar Sesión</a>
+            </c:if>	  
+            
+            <c:if test="${ not empty isLogeado }">
+            	<span class="badge badge-pill badge-light mr-3">${nombre}</span>
+            	<a class="nav-link  btn btn-outline-light" href="logout">Cerrar Sesión</a>
+            </c:if>
+              
          </span>
         
         </div>
       </nav>
       
-      <main role="main" class="container">
+     
       
-      	
+      	<main role="main" class="container">
       	<jsp:include page="alerta.jsp"></jsp:include>
+     
+    
+      	  
+      	  </body>
       
       

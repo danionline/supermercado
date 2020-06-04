@@ -34,6 +34,14 @@
 <a href="productos">Ver Productos</a>
 <br>
 <a href="formulario-producto.jsp">Crear Producto</a>
+<br>
+<a href="login.jsp">Login Sesion</a>
+<br>
+<a href="formulariopractico.jsp">Formulario Practico</a>
+<br>
+<a href="cooky.jsp">Cooky</a>
+
+
 
 
 <%@include file="includes/pie.jsp" %>
